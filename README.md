@@ -31,23 +31,7 @@ This function removes unwanted elements from a given text, including HTML tags, 
 ## Usage
 -----
 
-### 1. Initialize the Portfolio Database
-
-Create an instance of the `PortFolio` class and load the portfolio data into the ChromaDB collection:
-```python
-portfolio = PortFolio(filepath="path/to/portfolio.csv")
-portfolio.load_portfolio()
-```
-
-### 2. Query Relevant Links
-
-Query the ChromaDB collection to retrieve links based on provided skills:
-```python
-links = portfolio.query_links(["Python", "Machine Learning"])
-print(links)
-```
-
-### 3. Generate a Cold Email
+### 1. Generate a Cold Email
 
 Use the Streamlit app to generate a cold email based on a given URL:
 ```bash
