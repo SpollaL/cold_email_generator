@@ -1,58 +1,57 @@
-# Cold Email Generation Tool
-=====================================
+**Cold Email Generator using Large Language Model (LLM) Chain 🚀**
+=================================================================
 
-## Overview
-------------
+**Repository Overview**
+------------------------
 
-This repository contains a set of tools and scripts for generating cold emails based on a given URL. The tool uses a language model (LLM) to extract job information from the webpage content and a portfolio database to query relevant links. The extracted job information and links are then used to generate a cold email.
+This repository contains a Streamlit app that generates cold emails based on job descriptions using a Large Language Model (LLM) chain. The app extracts job information from job descriptions and generates emails using the extracted information.
 
-## Components
--------------
+**What's Inside**
+----------------
 
-### 1. LLM Chain Module
+* `llm_chains.py`: Manages LLM chains for extracting job information and generating emails.
+* `portfolio.py`: Handles a portfolio database using ChromaDB.
+* `email_template`: Provides a template for generating cold emails.
+* `utils.py`: Offers utility functions for text cleaning and preprocessing.
 
-This module defines a `Chain` class that utilizes the LangChain library to create two chains for natural language processing tasks:
+**How it Works**
+----------------
 
-* **Job Extraction Chain**: Extracts job postings from a given text and returns the extracted information in JSON format.
-* **Email Writing Chain**: Generates an email based on a job description and a list of corporate links.
+1. The user inputs a job description URL into the Streamlit app.
+2. The app uses the LLM chain to extract job information from the job description.
+3. The extracted information is used to generate a cold email using the email template.
+4. The app queries the portfolio database to retrieve relevant links based on skills.
+5. The generated email is displayed to the user.
 
-### 2. Streamlit App for Cold Email Generation
+**Key Functions**
+----------------
 
-This script creates a Streamlit app that generates cold emails based on a given URL. The app uses a language model (LLM) to extract job information from the webpage content and a portfolio database to query relevant links.
+* `extract_jobs`: Extracts job information from a job post and returns it in JSON format.
+* `write_email`: Generates an email from a job description and relevant corporate links.
+* `create_streamlit_app`: Creates a Streamlit app that takes a URL as input, extracts job information, and generates an email.
+* `load_portfolio`: Loads the portfolio dataset into ChromaDB.
+* `query_links`: Queries the ChromaDB dataset to retrieve links based on skills.
+* `clean_text`: Cleans and preprocesses text data by removing HTML tags, URLs, special characters, and extra whitespace.
 
-### 3. Portfolio Database Handler Module
+**Dependencies**
+----------------
 
-This module provides a class `PortFolio` to manage a portfolio database. It uses `pandas` to read a CSV file and `chromadb` to store and query the data.
+* `langchain_groq`
+* `langchain_core.prompts`
+* `langchain_core.output_parsers`
+* `langchain_core.exceptions`
+* `prompts`
+* `os`
+* `streamlit`
+* `langchain_community.document_loaders`
+* `pandas`
+* `chromadb`
 
-### 4. Text Cleaning Function
 
-This function removes unwanted elements from a given text, including HTML tags, URLs, special characters, and multiple spaces.
+**Notes**
+--------
 
-## Usage
------
-
-### 1. Generate a Cold Email
-
-Use the Streamlit app to generate a cold email based on a given URL:
-```bash
-streamlit run app.py
-```
-
-## Example Use Case
------------------
-
-The task is to write a cold email as Mohan, a business development executive at AtliQ, an AI and software consulting company. The email should describe AtliQ's capabilities in fulfilling the client's needs, and include relevant examples from a provided list of links to showcase the company's portfolio.
-
-## Requirements
-------------
-
-* Python 3.8+
-* LangChain library
-* Streamlit library
-* pandas library
-* chromadb library
-
-## Contributing
-------------
-
-Contributions are welcome! Please submit a pull request with your changes and a brief description of what you've added or fixed.
+* Environment variables (GROQ_API_KEY) are used to configure the ChatGroq instance.
+* The `extract_jobs` method raises an `OutputParserException` if the content is too big to parse.
+* The `write_email` method uses an email template from the `prompts` module.
+* The portfolio dataset is stored in a CSV file and loaded into ChromaDB using the `load_portfolio` method.
