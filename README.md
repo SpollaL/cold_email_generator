@@ -1,6 +1,8 @@
 **Cold Email Generator using Large Language Model (LLM) Chain 🚀**
 =================================================================
 
+https://github.com/user-attachments/assets/1e8c8cf0-2b0b-48cc-972c-2623a514d1d2
+
 **Repository Overview**
 ------------------------
 
