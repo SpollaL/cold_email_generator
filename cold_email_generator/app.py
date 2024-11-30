@@ -1,10 +1,11 @@
 """Main module to run streamlit app"""
+import sys
 import streamlit as st
+import streamlit.web.cli as stcli
 from langchain_community.document_loaders import WebBaseLoader
-
-from chains import Chain
-from portfolio import PortFolio
-from utils import clean_text
+from cold_email_generator.chains import Chain
+from cold_email_generator.portfolio import PortFolio
+from cold_email_generator.utils import clean_text
 
 
 def create_streamlit_app(llm: "Chain", portfolio: "PortFolio") -> None:
@@ -33,9 +34,13 @@ def create_streamlit_app(llm: "Chain", portfolio: "PortFolio") -> None:
             st.error(f"An error occured : {e}")
 
 
-if __name__ == "__main__":
+def app():
     chain = Chain()
     portfolio_ = PortFolio()
     st.set_page_config(
         layout="wide", page_title="Cold Email Generator", page_icon="📧")
     create_streamlit_app(chain, portfolio_)
+
+
+if __name__ == '__main__':
+    app()

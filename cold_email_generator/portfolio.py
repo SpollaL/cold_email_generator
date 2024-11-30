@@ -1,4 +1,5 @@
 """Module to handle portfolio database"""
+import importlib.resources
 import pandas as pd
 import chromadb
 
@@ -7,10 +8,11 @@ class PortFolio:
     """Class to handle portfolio
     """
 
-    def __init__(self, filepath="./resources/my_portfolio.csv") -> None:
-        self.filepath = filepath
-        self.data = pd.read_csv(filepath)
-        self.chroma_client = chromadb.PersistentClient()
+    def __init__(self) -> None:
+        with importlib.resources.open_text("cold_email_generator.resources", "my_portfolio.csv") as file:
+            self.data = pd.read_csv(file)
+        self.chroma_client = chromadb.HttpClient(host="chroma", port=8000)
+        # self.chroma_client = chromadb.PersistentClient()
         self.collection = self.chroma_client.get_or_create_collection(
             name="portfolio")
 
