@@ -2,6 +2,7 @@
 import sys
 import streamlit as st
 import streamlit.web.cli as stcli
+import traceback
 from langchain_community.document_loaders import WebBaseLoader
 from cold_email_generator.chains import Chain
 from cold_email_generator.portfolio import PortFolio
@@ -31,7 +32,12 @@ def create_streamlit_app(llm: "Chain", portfolio: "PortFolio") -> None:
                 email = llm.write_email(job, links)
                 st.code(email, language="markdown")
         except Exception as e:
-            st.error(f"An error occured : {e}")
+            # Get the detailed traceback
+            tb_str = traceback.format_exc()
+            
+            # Display error message with traceback
+            st.error(f"An error occurred: {e}")
+            st.text_area("Traceback Details", tb_str, height=300)
 
 
 def app():
