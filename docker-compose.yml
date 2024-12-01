@@ -5,17 +5,20 @@ services:
       dockerfile: ./Dockerfile
     image: application
     container_name: application
-    environment:
-      - GROQ_API_KEY=${GROQ_API_KEY}
+    env_file: ".env"
     ports: 
       - 8501:8501
     networks:
       - net
 
   chroma:
-    image: ghcr.io/chroma-core/chroma:latest
+    image: chromadb/chroma:0.5.20
     volumes:
-      - index_data:/chroma/.chroma/index
+      - ./chromadb:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma # this is the default path, change it as needed
+      - ANONYMIZED_TELEMETRY=${ANONYMIZED_TELEMETRY:-TRUE}
     ports:
       - 8000:8000
     networks:
